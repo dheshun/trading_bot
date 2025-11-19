@@ -4,17 +4,22 @@ import "time"
 
 // Data 市场数据结构
 type Data struct {
-	Symbol            string
-	CurrentPrice      float64
-	PriceChange1h     float64 // 1小时价格变化百分比
-	PriceChange4h     float64 // 4小时价格变化百分比
-	CurrentEMA20      float64
-	CurrentMACD       float64
-	CurrentRSI7       float64
-	OpenInterest      *OIData
-	FundingRate       float64
-	IntradaySeries    *IntradayData
-	LongerTermContext *LongerTermData
+    Symbol            string
+    CurrentPrice      float64
+    PriceChange1h     float64 // 1小时价格变化百分比
+    PriceChange4h     float64 // 4小时价格变化百分比
+    PriceChange3m     float64
+    PriceChange15m    float64
+    CurrentEMA20      float64
+    CurrentEMA50      float64
+    CurrentMACD       float64
+    CurrentRSI7       float64
+    OpenInterest      *OIData
+    FundingRate       float64
+    IntradaySeries    *IntradayData
+    FifteenMinuteContext *LongerTermData
+    OneHourContext       *LongerTermData
+    LongerTermContext *LongerTermData
 }
 
 // OIData Open Interest数据
@@ -25,25 +30,35 @@ type OIData struct {
 
 // IntradayData 日内数据(3分钟间隔)
 type IntradayData struct {
-	MidPrices   []float64
-	EMA20Values []float64
-	MACDValues  []float64
-	RSI7Values  []float64
-	RSI14Values []float64
-	Volume      []float64
-	ATR14       float64
+    MidPrices   []float64
+    EMA20Values []float64
+    EMA50Values []float64
+    MACDValues  []float64
+    RSI7Values  []float64
+    RSI14Values []float64
+    Volume      []float64
+    ATR14       float64
+    // 新增：3m 当前与平均成交量
+    CurrentVolume float64
+    AverageVolume float64
 }
 
 // LongerTermData 长期数据(4小时时间框架)
 type LongerTermData struct {
-	EMA20         float64
-	EMA50         float64
-	ATR3          float64
-	ATR14         float64
-	CurrentVolume float64
-	AverageVolume float64
-	MACDValues    []float64
-	RSI14Values   []float64
+    EMA20         float64
+    EMA50         float64
+    ATR3          float64
+    ATR14         float64
+    CurrentVolume float64
+    AverageVolume float64
+    MACDValues    []float64
+    RSI14Values   []float64
+    // 新增：与 3m 风格一致的逐点数组
+    MidPrices     []float64
+    EMA20Values   []float64
+    EMA50Values   []float64
+    RSI7Values    []float64
+    Volume        []float64
 }
 
 // Binance API 响应结构
